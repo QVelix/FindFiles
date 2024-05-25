@@ -4,6 +4,7 @@ namespace FindFiles;
 
 class Program
 {
+	private static string[] fileTypes = new[] { ".png", ".gif", ".jpg", ".jpeg", ".dll" };
 	static void Main(string[] args)
 	{
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -11,7 +12,7 @@ class Program
 			DriveInfo[] allDrives = DriveInfo.GetDrives();
 			foreach (var drive in allDrives)
 			{
-				
+				FindFiles(drive.Name);
 			}
 		}
 
@@ -20,5 +21,11 @@ class Program
 		{
 			
 		}
+	}
+
+	public static void FindFiles(string currentDirectory)
+	{
+		Directory.SetCurrentDirectory(currentDirectory);
+		Console.WriteLine(Directory.GetCurrentDirectory());
 	}
 }
