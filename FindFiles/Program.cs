@@ -22,6 +22,19 @@ class Program
 		{
 			FindFiles("/", files);
 		}
+		
+		
+		if (!File.Exists(Directory.GetCurrentDirectory() + "myfile.txt"))
+		{
+			File.Create(Directory.GetCurrentDirectory() + "myfile.txt");
+		}
+
+		StreamWriter sw = new StreamWriter(Directory.GetCurrentDirectory() + "/myfile.txt");
+		foreach (var file in files)
+		{
+			sw.WriteLine(file);
+		}
+		sw.Close();
 	}
 
 	public static void FindFiles(string currentDirectory, List<string> files)
