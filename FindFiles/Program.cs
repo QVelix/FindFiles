@@ -20,7 +20,7 @@ class Program
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ||
 		    RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
 		{
-			
+			FindFiles("/", files);
 		}
 	}
 
