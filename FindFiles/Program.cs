@@ -7,6 +7,7 @@ class Program
 	private static string[] fileTypes = new[] { ".png", ".gif", ".jpg", ".jpeg" };
 	static void Main(string[] args)
 	{
+		Console.WriteLine(DateTime.Now);
 		HashSet<string> files = new HashSet<string>();
 		List<string> filteredFiles = new List<string>();
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -42,6 +43,7 @@ class Program
 			sw.WriteLine(file);
 		}
 		sw.Close();
+		Console.WriteLine(DateTime.Now);
 	}
 
 	public static void FindFiles(string currentDirectory, HashSet<string> files) //O(n^3)
@@ -53,8 +55,12 @@ class Program
 			{
 				foreach (var file in filesInDirectory)
 				{
-					files.Add(file);
+					foreach (var type in fileTypes)
+					{
+						if(file.Contains(type)) files.Add(file);
+					}
 				}
+				
 			}
 			var directories = Directory.GetDirectories(currentDirectory);
 			if (directories.Length < 1) return;
