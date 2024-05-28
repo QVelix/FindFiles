@@ -7,6 +7,7 @@ class Program
 	private static string[] fileTypes = new[] { ".png", ".gif", ".jpg", ".jpeg" };
 	static void Main(string[] args)
 	{
+		Console.WriteLine(DateTime.Now);
 		List<string> files = new List<string>();
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 		{
@@ -35,6 +36,7 @@ class Program
 			sw.WriteLine(file);
 		}
 		sw.Close();
+		Console.WriteLine(DateTime.Now);
 	}
 
 	public static void FindFiles(string currentDirectory, List<string> files)
@@ -44,9 +46,12 @@ class Program
 			var filesInDirectory = Directory.GetFiles(currentDirectory).ToList();
 			if (filesInDirectory.Count > 0)
 			{
-				foreach (var fileType in fileTypes)
+				foreach (var file in filesInDirectory)
 				{
-					files.AddRange(filesInDirectory.Where(e=>e.Contains(fileType)));
+					foreach (var type in fileTypes)
+					{
+						if(file.Contains(type)) files.Add(file);
+					}
 				}
 			}
 			var directories = Directory.GetDirectories(currentDirectory);
