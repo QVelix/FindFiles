@@ -7,13 +7,31 @@ class Program
 	private static string[] fileTypes = new[] { ".png", ".gif", ".jpg", ".jpeg" };
 	static void Main(string[] args)
 	{
+		Console.WriteLine(DateTime.Now);
 		List<string> files = new List<string>();
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 		{
 			DriveInfo[] allDrives = DriveInfo.GetDrives();
 			foreach (var drive in allDrives)
 			{
-				FindFiles(drive.Name, files);
+				foreach (var type in fileTypes)
+				{
+					try
+					{
+						files.AddRange(Directory.GetFiles(drive.Name, "*"+type, new EnumerationOptions
+						{
+							IgnoreInaccessible = true,
+							RecurseSubdirectories = true
+						}));
+					}
+					catch (Exception e)
+					{
+						// Console.WriteLine(e);
+						// throw;
+					}
+					
+				}
+				// FindFiles(drive.Name, files);
 			}
 		}
 
@@ -35,6 +53,7 @@ class Program
 			sw.WriteLine(file);
 		}
 		sw.Close();
+		Console.WriteLine(DateTime.Now);
 	}
 
 	public static void FindFiles(string currentDirectory, List<string> files)
