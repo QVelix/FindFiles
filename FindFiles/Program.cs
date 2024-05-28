@@ -16,20 +16,11 @@ class Program
 			{
 				foreach (var type in fileTypes)
 				{
-					try
+					files.AddRange(Directory.GetFiles(drive.Name, "*"+type, new EnumerationOptions
 					{
-						files.AddRange(Directory.GetFiles(drive.Name, "*"+type, new EnumerationOptions
-						{
-							IgnoreInaccessible = true,
-							RecurseSubdirectories = true
-						}));
-					}
-					catch (Exception e)
-					{
-						// Console.WriteLine(e);
-						// throw;
-					}
-					
+						IgnoreInaccessible = true,
+						RecurseSubdirectories = true
+					}));
 				}
 				// FindFiles(drive.Name, files);
 			}
